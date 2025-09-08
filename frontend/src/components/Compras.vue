@@ -3,7 +3,7 @@
     <h2>Registrar Compra</h2>
 
     <form @submit.prevent="registrarCompra">
-      <div style="margin-bottom:10px">
+      <div class="campo-container">
         <label class="rotulo" for="fornecedor">Fornecedor</label>
         <input id="fornecedor" class="campo" v-model="compra.fornecedor" placeholder="Nome do fornecedor" required />
       </div>
@@ -50,12 +50,8 @@ export default {
     const toast = useToast();
 
     const listar = async () => {
-      try {
-        const res = await api.get('/produtos');
-        produtos.value = res.data;
-      } catch {
-        toast.error('Erro ao carregar produtos');
-      }
+      try { produtos.value = (await api.get('/produtos')).data; }
+      catch { toast.error('Erro ao carregar produtos'); }
     };
 
     const adicionarItem = () => compra.value.produtos.push({ id: null, quantidade: 1, preco_unitario: 0 });
@@ -67,13 +63,86 @@ export default {
         toast.success('Compra registrada com sucesso!');
         compra.value = { fornecedor: '', produtos: [{ id: null, quantidade: 1, preco_unitario: 0 }] };
         listar();
-      } catch (err) {
-        toast.error(err.response?.data?.message || 'Erro ao registrar compra');
-      }
+      } catch (err) { toast.error(err.response?.data?.message || 'Erro ao registrar compra'); }
     };
 
     onMounted(listar);
     return { produtos, compra, adicionarItem, removerItem, registrarCompra };
-  },
+  }
 };
 </script>
+
+<style scoped>
+.container {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--raio);
+  box-shadow: var(--sombral);
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 14px;
+}
+
+.rotulo {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.campo {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--borda-input);
+  background: var(--fundo-input);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.itens-produto {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.botao {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+   margin: 0px 0px 14px ;
+}
+
+.botao-primario {
+  background: var(--primaria);
+  color: #fff;
+}
+
+.botao-primario:hover {
+  opacity: 0.95;
+}
+
+.botao-sucesso {
+  background: var(--sucesso);
+  color: #fff;
+}
+
+.botao-sucesso:hover {
+  opacity: 0.95;
+}
+
+.botao-perigo {
+  background: var(--perigo);
+  color: #fff;
+}
+
+.botao-perigo:hover {
+  opacity: 0.95;
+}
+</style>

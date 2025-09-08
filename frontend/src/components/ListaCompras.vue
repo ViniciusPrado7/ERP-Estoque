@@ -40,18 +40,48 @@ export default {
     const toast = useToast();
 
     const listar = async () => {
-      try {
-        const res = await api.get('/compras');
-        compras.value = res.data;
-      } catch {
-        toast.error('Erro ao carregar histórico de compras');
-      }
+      try { compras.value = (await api.get('/compras')).data; }
+      catch { toast.error('Erro ao carregar histórico de compras'); }
     };
 
-    const numberFormat = (v) => Number(v || 0).toFixed(2);
-
+    const numberFormat = v => Number(v || 0).toFixed(2);
     onMounted(listar);
     return { compras, numberFormat };
   }
 };
 </script>
+
+<style scoped>
+.container {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--raio);
+  box-shadow: var(--sombral);
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 14px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabela thead {
+  background: #f6f8fb;
+}
+
+.tabela th,
+.tabela td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef0f4;
+  text-align: left;
+  font-size: 14px;
+}
+</style>

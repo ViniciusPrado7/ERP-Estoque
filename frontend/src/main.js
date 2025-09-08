@@ -2,6 +2,8 @@ import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
 
+import router from './router/rotas.js' 
+
 import Toast, { POSITION } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 
@@ -16,4 +18,5 @@ app.use(Toast, {
   showCloseButtonOnHover: false,
 })
 
+app.use(router)
 app.mount('#app')

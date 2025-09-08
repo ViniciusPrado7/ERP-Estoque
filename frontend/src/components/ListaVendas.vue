@@ -42,18 +42,48 @@ export default {
     const toast = useToast();
 
     const listar = async () => {
-      try {
-        const res = await api.get('/vendas');
-        vendas.value = res.data;
-      } catch {
-        toast.error('Erro ao carregar histórico de vendas');
-      }
+      try { vendas.value = (await api.get('/vendas')).data; }
+      catch { toast.error('Erro ao carregar histórico de vendas'); }
     };
 
-    const numberFormat = (v) => Number(v || 0).toFixed(2);
-
+    const numberFormat = v => Number(v || 0).toFixed(2);
     onMounted(listar);
     return { vendas, numberFormat };
   }
 };
 </script>
+
+<style scoped>
+.container {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--raio);
+  box-shadow: var(--sombral);
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 14px;
+}
+
+.tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.tabela thead {
+  background: #f6f8fb;
+}
+
+.tabela th,
+.tabela td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #eef0f4;
+  text-align: left;
+  font-size: 14px;
+}
+</style>

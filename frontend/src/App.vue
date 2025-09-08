@@ -3,51 +3,75 @@
     <h1>ERP de Estoque</h1>
 
     <div class="navegacao">
-      <button
-        class="botao botao-primario"
-        :class="{ ativo: atual === 'produtos' }"
-        @click="atual = 'produtos'">Produtos</button>
-
-      <button
-        class="botao botao-primario"
-        :class="{ ativo: atual === 'compras' }"
-        @click="atual = 'compras'">Compras</button>
-
-      <button
-        class="botao botao-primario"
-        :class="{ ativo: atual === 'vendas' }"
-        @click="atual = 'vendas'">Vendas</button>
-
-      <button
-        class="botao botao-primario"
-        :class="{ ativo: atual === 'lista-compras' }"
-        @click="atual = 'lista-compras'">Histórico Compras</button>
-
-      <button
-        class="botao botao-primario"
-        :class="{ ativo: atual === 'lista-vendas' }"
-        @click="atual = 'lista-vendas'">Histórico Vendas</button>
+      <router-link to="/" class="botao botao-primario">Produtos</router-link>
+      <router-link to="/compras" class="botao botao-primario">Compras</router-link>
+      <router-link to="/vendas" class="botao botao-primario">Vendas</router-link>
+      <router-link to="/historico-compras" class="botao botao-primario">Histórico Compras</router-link>
+      <router-link to="/historico-vendas" class="botao botao-primario">Histórico Vendas</router-link>
     </div>
 
-    <Produtos v-if="atual === 'produtos'" />
-    <Compras v-if="atual === 'compras'" />
-    <Vendas v-if="atual === 'vendas'" />
-    <ListaCompras v-if="atual === 'lista-compras'" />
-    <ListaVendas v-if="atual === 'lista-vendas'" />
+    <router-view />
   </div>
 </template>
 
 <script>
-import Produtos from './components/Produtos.vue';
-import Compras from './components/Compras.vue';
-import Vendas from './components/Vendas.vue';
-import ListaCompras from './components/ListaCompras.vue';
-import ListaVendas from './components/ListaVendas.vue';
-
 export default {
-  components: { Produtos, Compras, Vendas, ListaCompras, ListaVendas },
-  data() {
-    return { atual: 'produtos' };
-  },
+  name: 'App',
 };
 </script>
+
+<style scoped>
+:root {
+  --primaria: #007bff;
+  --sucesso: #28a745;
+  --perigo: #dc3545;
+  --fundo-input: #f7f8fa;
+  --borda-input: #dcdfe6;
+  --card: #ffffff;
+  --texto: #213547;
+  --sombral: 0 6px 18px rgba(33,53,71,0.08);
+  --raio: 10px;
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+#app {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  min-height: 100vh;
+  background: #f4f6fb;
+  color: var(--texto);
+  padding: 2rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 16px;
+  font-size: 28px;
+}
+
+.navegacao {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 18px;
+}
+
+.navegacao .botao {
+  padding: 8px 16px;
+}
+
+.botao {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.botao-primario { background: var(--primaria); color: #fff; }
+.botao-primario:hover { opacity: 0.95; }
+.botao-sucesso { background: var(--sucesso); color: #fff; }
+.botao-sucesso:hover { opacity: 0.95; }
+.botao-perigo { background: var(--perigo); color: #fff; }
+.botao-perigo:hover { opacity: 0.95; }
+</style>

@@ -3,7 +3,7 @@
     <h2>Registrar Venda</h2>
 
     <form @submit.prevent="registrarVenda">
-      <div style="margin-bottom:10px">
+      <div class="campo-container">
         <label class="rotulo" for="cliente">Cliente</label>
         <input id="cliente" class="campo" v-model="venda.cliente" placeholder="Nome do cliente" required />
       </div>
@@ -58,12 +58,8 @@ export default {
     const toast = useToast();
 
     const listar = async () => {
-      try {
-        const res = await api.get('/produtos');
-        produtos.value = res.data;
-      } catch {
-        toast.error('Erro ao carregar produtos');
-      }
+      try { produtos.value = (await api.get('/produtos')).data; }
+      catch { toast.error('Erro ao carregar produtos'); }
     };
 
     const precoSugerido = (produtoId) => {
@@ -72,63 +68,120 @@ export default {
     };
 
     const adicionarItem = () => venda.value.produtos.push({ id: null, quantidade: 1 });
-    const removerItem = (i) => {
-      venda.value.produtos.splice(i, 1);
-      recalcular();
-    };
-
-    const atualizarPreco = (idx) => {
-      recalcular();
-    };
+    const removerItem = (i) => { venda.value.produtos.splice(i, 1); recalcular(); };
+    const atualizarPreco = (idx) => recalcular();
 
     const totalEstimado = computed(() => {
-      let t = 0;
-      for (const item of venda.value.produtos) {
+      return venda.value.produtos.reduce((t, item) => {
         const p = produtos.value.find(x => x.id === item.id);
-        if (p) t += (Number(p.preco_venda) || 0) * (Number(item.quantidade) || 0);
-      }
-      return t;
+        return p ? t + p.preco_venda * item.quantidade : t;
+      }, 0);
     });
 
     const lucroEstimado = computed(() => {
-      let l = 0;
-      for (const item of venda.value.produtos) {
+      return venda.value.produtos.reduce((l, item) => {
         const p = produtos.value.find(x => x.id === item.id);
-        if (p) {
-          const custo = Number(p.custo_medio) || 0;
-          const preco = Number(p.preco_venda) || 0;
-          l += (preco - custo) * (Number(item.quantidade) || 0);
-        }
-      }
-      return l;
+        return p ? l + (p.preco_venda - p.custo_medio) * item.quantidade : l;
+      }, 0);
     });
 
-    const numberFormat = (v) => Number(v || 0).toFixed(2);
-
-    const recalcular = () => {
-    };
+    const numberFormat = v => Number(v || 0).toFixed(2);
+    const recalcular = () => { };
 
     const registrarVenda = async () => {
       try {
-        const payload = {
-          cliente: venda.value.cliente,
-          produtos: venda.value.produtos.map(i => ({ id: i.id, quantidade: i.quantidade })),
-        };
-        const res = await api.post('/vendas', payload);
+        await api.post('/vendas', { cliente: venda.value.cliente, produtos: venda.value.produtos.map(i => ({ id: i.id, quantidade: i.quantidade })) });
         toast.success('Venda registrada com sucesso!');
         venda.value = { cliente: '', produtos: [{ id: null, quantidade: 1 }] };
         listar();
-      } catch (err) {
-        toast.error(err.response?.data?.message || 'Erro ao registrar venda');
-      }
+      } catch (err) { toast.error(err.response?.data?.message || 'Erro ao registrar venda'); }
     };
 
     onMounted(listar);
-
-    return {
-      produtos, venda, adicionarItem, removerItem, atualizarPreco,
-      precoSugerido, totalEstimado, lucroEstimado, numberFormat, registrarVenda, recalcular
-    };
-  },
+    return { produtos, venda, adicionarItem, removerItem, atualizarPreco, precoSugerido, totalEstimado, lucroEstimado, numberFormat, registrarVenda, recalcular };
+  }
 };
 </script>
+
+<style scoped>
+.container {
+  background: var(--card);
+  padding: 20px;
+  border-radius: var(--raio);
+  box-shadow: var(--sombral);
+  margin-bottom: 20px;
+}
+
+h2 {
+  margin-bottom: 14px;
+}
+
+.rotulo {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.campo {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--borda-input);
+  background: var(--fundo-input);
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.itens-produto {
+  display: flex;
+  gap: 12px;
+  align-items: end;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.botao {
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+   margin: 0px 0px 14px ;
+}
+
+.botao-primario {
+  background: var(--primaria);
+  color: #fff;
+}
+
+.botao-primario:hover {
+  opacity: 0.95;
+}
+
+.botao-sucesso {
+  background: var(--sucesso);
+  color: #fff;
+}
+
+.botao-sucesso:hover {
+  opacity: 0.95;
+}
+
+.botao-perigo {
+  background: var(--perigo);
+  color: #fff;
+}
+
+.botao-perigo:hover {
+  opacity: 0.95;
+}
+
+.resultado {
+  margin-top: 14px;
+  padding: 12px;
+  border-radius: 8px;
+  background: #f2fff3;
+  border: 1px solid #c9efce;
+}
+</style>
