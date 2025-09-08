@@ -1,11 +1,11 @@
 # ERP Estoque
 
-Sistema de gestão de estoque desenvolvido com **Vue.js** no frontend e **PHP** no backend, permitindo o controle de produtos, compras e vendas de forma prática.
+Sistema de gestão de estoque desenvolvido com **Vue.js** no frontend e **Laravel (PHP)** no backend, permitindo o controle de produtos, compras e vendas de forma prática.
 
 ## 🚀 Tecnologias Utilizadas
 
 - **Frontend:** Vue.js, Vue Router, Axios, Vue Toastification  
-- **Backend:** PHP, MySQL  
+- **Backend:** Laravel (PHP), MySQL  
 - **Estilização:** CSS modular com variáveis  
 - **Gerenciamento de Rotas:** Vue Router  
 
@@ -15,8 +15,10 @@ Sistema de gestão de estoque desenvolvido com **Vue.js** no frontend e **PHP** 
   - `components/`: Componentes Vue para produtos, compras, vendas e históricos  
   - `router/`: Configuração das rotas da aplicação  
   - `api/`: Arquivo de integração com backend via Axios  
-- `backend/`: Código do backend em PHP  
-  - Controllers, Models e rotas para manipulação do banco de dados  
+- `backend/`: Código do backend em Laravel  
+  - `app/Http/Controllers/`: Controllers do sistema  
+  - `database/migrations/`: Migrations para criar tabelas  
+  - `routes/api.php`: Rotas da API  
 
 ## ⚙️ Funcionalidades
 
@@ -35,13 +37,23 @@ Sistema de gestão de estoque desenvolvido com **Vue.js** no frontend e **PHP** 
 
 ## 📥 Como Rodar o Projeto
 
-### Backend (PHP + MySQL)
+### Backend (Laravel + MySQL)
 
-1. Configure o banco de dados e crie as tabelas necessárias.  
-2. Atualize as credenciais do banco no arquivo de configuração do backend.  
-3. Execute o servidor PHP:  
+1. Instale as dependências via Composer:  
    ```bash
-   php -S localhost:8000 -t public
+   composer install
+Configure o arquivo .env com as credenciais do banco de dados.
+
+Execute as migrations para criar as tabelas:
+
+bash
+Copiar código
+php artisan migrate
+Inicie o servidor de desenvolvimento Laravel:
+
+bash
+Copiar código
+php artisan serve
 Frontend (Vue.js)
 Navegue até a pasta frontend/.
 
@@ -54,8 +66,13 @@ Inicie o servidor de desenvolvimento:
 
 bash
 Copiar código
-npm run serve
+npm run dev
 Acesse http://localhost:8080 no navegador.
+
+🧪 Testes
+Testes podem ser realizados diretamente via frontend com cadastro e listagem de produtos, compras e vendas.
+
+Logs e erros aparecem no console ou via notificação usando Vue Toastification.
 
 🧪 Testes
 Testes podem ser realizados diretamente via frontend com cadastro e listagem de produtos, compras e vendas.
