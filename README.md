@@ -1,96 +1,84 @@
-ERP Estoque
+# ERP Estoque
 
-Sistema de gestão de estoque desenvolvido com Vue.js no frontend e Laravel (PHP) no backend, permitindo o controle de produtos, compras e vendas de forma prática.
+Sistema de gestão de estoque desenvolvido com **Vue.js** no frontend e **Laravel (PHP)** no backend, permitindo o controle de produtos, compras e vendas de forma prática.
 
-🚀 Tecnologias Utilizadas
+## 🚀 Tecnologias Utilizadas
 
-Frontend: Vue.js, Vue Router, Axios, Vue Toastification
+- **Frontend:** Vue.js, Vue Router, Axios, Vue Toastification  
+- **Backend:** Laravel (PHP), MySQL  
+- **Estilização:** CSS modular com variáveis  
+- **Gerenciamento de Rotas:** Vue Router  
 
-Backend: Laravel (PHP), MySQL
+## 📦 Estrutura do Projeto
 
-Estilização: CSS modular com variáveis
+### Frontend (`frontend/`)
 
-Gerenciamento de Rotas: Vue Router
+- `components/`: Componentes Vue para produtos, compras, vendas e históricos  
+- `router/`: Configuração das rotas da aplicação  
+- `api/`: Arquivo de integração com backend via Axios  
 
-📦 Estrutura do Projeto
-Frontend (frontend/)
+### Backend (`backend/`)
 
-components/: Componentes Vue para produtos, compras, vendas e históricos
+- `app/Http/Controllers/`: Controllers do sistema  
+- `database/migrations/`: Migrations para criar tabelas  
+- `routes/api.php`: Rotas da API  
 
-router/: Configuração das rotas da aplicação
+## ⚙️ Funcionalidades
 
-api/: Arquivo de integração com backend via Axios
+### Produtos
+- Cadastrar novos produtos com preço de venda e custo médio  
+- Listar produtos e estoque atual  
 
-Backend (backend/)
+### Compras
+- Registrar compras com fornecedor e produtos  
+- Visualizar histórico de compras  
 
-app/Http/Controllers/: Controllers do sistema
+### Vendas
+- Registrar vendas com cliente e produtos  
+- Visualizar histórico de vendas  
+- Cálculo de total e lucro estimado  
 
-database/migrations/: Migrations para criar tabelas
+### Estoque
+- Controle automático de estoque com base em compras e vendas  
 
-routes/api.php: Rotas da API
+## 📥 Como Rodar o Projeto
 
-⚙️ Funcionalidades
-Produtos
+### Backend (Laravel + MySQL)
 
-Cadastrar novos produtos com preço de venda e custo médio
+1. Instale as dependências via Composer:
+    ```bash
+    composer install
+    ```
 
-Listar produtos e estoque atual
+2. Configure o arquivo `.env` com as credenciais do banco de dados.
 
-Compras
+3. Execute as migrations para criar as tabelas:
+    ```bash
+    php artisan migrate
+    ```
 
-Registrar compras com fornecedor e produtos
+4. Inicie o servidor de desenvolvimento Laravel:
+    ```bash
+    php artisan serve
+    ```
 
-Visualizar histórico de compras
+### Frontend (Vue.js)
 
-Vendas
+1. Navegue até a pasta `frontend/`.
 
-Registrar vendas com cliente e produtos
+2. Instale as dependências:
+    ```bash
+    npm install
+    ```
 
-Visualizar histórico de vendas
+3. Inicie o servidor de desenvolvimento:
+    ```bash
+    npm run dev
+    ```
 
-Cálculo de total e lucro estimado
+4. Acesse [http://localhost:8080](http://localhost:8080) no navegador.
 
-Estoque
+## 🧪 Testes
 
-Controle automático de estoque com base em compras e vendas
-
-📥 Como Rodar o Projeto
-Backend (Laravel + MySQL)
-
-Instale as dependências via Composer:
-
-composer install
-
-
-Configure o arquivo .env com as credenciais do banco de dados.
-
-Execute as migrations para criar as tabelas:
-
-php artisan migrate
-
-
-Inicie o servidor de desenvolvimento Laravel:
-
-php artisan serve
-
-Frontend (Vue.js)
-
-Navegue até a pasta frontend/.
-
-Instale as dependências:
-
-npm install
-
-
-Inicie o servidor de desenvolvimento:
-
-npm run dev
-
-
-Acesse http://localhost:8080 no navegador.
-
-🧪 Testes
-
-Testes podem ser realizados diretamente via frontend com cadastro e listagem de produtos, compras e vendas.
-
-Logs e erros aparecem no console ou via notificação usando Vue Toastification.
+- Testes podem ser realizados diretamente via frontend com cadastro e listagem de produtos, compras e vendas.  
+- Logs e erros aparecem no console ou via notificação usando Vue Toastification.
