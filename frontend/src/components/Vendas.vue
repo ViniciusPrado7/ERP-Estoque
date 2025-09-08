@@ -78,7 +78,6 @@ export default {
     };
 
     const atualizarPreco = (idx) => {
-      // apenas recalcula valores mostrados
       recalcular();
     };
 
@@ -107,12 +106,10 @@ export default {
     const numberFormat = (v) => Number(v || 0).toFixed(2);
 
     const recalcular = () => {
-      // forçar atualização dos computeds (em Vue 3 eles atualizam automaticamente)
     };
 
     const registrarVenda = async () => {
       try {
-        // Payload sem preco_unitario — backend usa preco_venda do produto
         const payload = {
           cliente: venda.value.cliente,
           produtos: venda.value.produtos.map(i => ({ id: i.id, quantidade: i.quantidade })),
