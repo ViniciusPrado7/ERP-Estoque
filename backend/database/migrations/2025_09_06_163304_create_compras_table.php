@@ -12,7 +12,7 @@ class CreateComprasTable extends Migration
     $table->id();
     $table->string('fornecedor');
     $table->decimal('total', 14, 2)->default(0);
-    $table->timestamps();
+
 });
 
     }

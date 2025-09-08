@@ -14,7 +14,7 @@ class CreateVendasTable extends Migration
     $table->decimal('total', 14, 2)->default(0);
     $table->decimal('lucro', 14, 2)->default(0);
     $table->enum('status', ['PENDING', 'COMPLETED', 'CANCELLED'])->default('COMPLETED');
-    $table->timestamps();
+
 });
 
 

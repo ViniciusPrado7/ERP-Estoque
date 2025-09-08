@@ -14,7 +14,6 @@ class CreateProdutosTable extends Migration
             $table->decimal('preco_venda', 12, 2);
             $table->decimal('custo_medio', 12, 2)->default(0);
             $table->integer('estoque')->default(0);
-            $table->timestamps();
         });
     }
 

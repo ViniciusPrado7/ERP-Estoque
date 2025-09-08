@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
+    public $timestamps = false;
+
     use HasFactory;
 
     protected $fillable = [
@@ -19,14 +21,14 @@ class Produto extends Model
     public function compras()
     {
         return $this->belongsToMany(Compra::class, 'compra_produto')
-                    ->withPivot('quantidade', 'preco_unitario')
-                    ->withTimestamps();
+                    ->withPivot('quantidade', 'preco_unitario');
+
     }
 
     public function vendas()
     {
         return $this->belongsToMany(Venda::class, 'venda_produto')
-                    ->withPivot('quantidade', 'preco_unitario', 'custo_unitario')
-                    ->withTimestamps();
+                    ->withPivot('quantidade', 'preco_unitario', 'custo_unitario');
+
     }
 }

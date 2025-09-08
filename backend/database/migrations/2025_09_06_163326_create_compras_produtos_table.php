@@ -14,13 +14,13 @@ class CreateComprasProdutosTable extends Migration
     $table->foreignId('produto_id')->constrained('produtos')->onDelete('cascade');
     $table->integer('quantidade');
     $table->decimal('preco_unitario', 12, 2);
-    $table->timestamps();
+
 });
 
     }
 
     public function down()
     {
-        Schema::dropIfExists('compras_produto');
+        Schema::dropIfExists('compra_produto');
     }
 }

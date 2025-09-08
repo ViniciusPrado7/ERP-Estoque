@@ -15,13 +15,13 @@ class CreateVendasProdutosTable extends Migration
     $table->integer('quantidade');
     $table->decimal('preco_unitario', 12, 2);
     $table->decimal('custo_unitario', 12, 2);
-    $table->timestamps();
+
 });
 
     }
 
     public function down()
     {
-        Schema::dropIfExists('vendas_produtos');
+        Schema::dropIfExists('vendas_produto');
     }
 }
